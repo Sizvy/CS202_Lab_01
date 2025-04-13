@@ -5,6 +5,7 @@ struct inode;
 struct pipe;
 struct proc;
 struct pinfo; // Lab 1
+extern int total_syscalls; // Lab 1
 struct spinlock;
 struct sleeplock;
 struct stat;

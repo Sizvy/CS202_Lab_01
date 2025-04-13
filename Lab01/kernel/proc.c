@@ -691,7 +691,6 @@ int get_sysinfo(int param)
   {
     int process_count = 0;
 
-    //printf("\n");
     for(p = proc; p < &proc[NPROC]; p++){
       if(p->state == RUNNABLE || p->state == RUNNING || p->state == ZOMBIE || p->state == SLEEPING){
         process_count++;
@@ -702,16 +701,6 @@ int get_sysinfo(int param)
   }
   else if(param == 1)
   {
-
-    // return myproc()->syscall_count;
-    int total_syscalls = 0;
-
-    for(struct proc *p = proc; p < &proc[NPROC]; p++) {
-      if(p->state != UNUSED) {
-        total_syscalls += p->syscall_count;
-      }
-    }
-
     return total_syscalls;
   }
   else if(param == 2)

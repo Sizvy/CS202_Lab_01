@@ -7,6 +7,9 @@
 #include "syscall.h"
 #include "defs.h"
 
+// Lab 1
+int total_syscalls = 0;
+
 
 // Fetch the uint64 at addr from the current process.
 int
@@ -142,19 +145,21 @@ syscall(void)
   int num;
   struct proc *p = myproc();
   num = p->trapframe->a7;
-  
   if(num > 0 && num < NELEM(syscalls) && syscalls[num]) {
     // Use num to lookup the system call function for num, call it,
     // and store its return value in p->trapframe->a0
-
-    int cs_calls = num;
-    p->trapframe->a0 = syscalls[num]();
-
     // Lab 1
-    if(!(cs_calls == SYS_sysinfo && p->trapframe->a0 == 1))
+    total_syscalls++;
+    int arg0 = p->trapframe->a0;
+    p->trapframe->a0 = syscalls[num]();
+    // Lab 1
+    p->syscall_count++;
+    if(num == SYS_sysinfo && arg0 == 1)
     {
-      p->syscall_count++;
+      total_syscalls--;
+      p->syscall_count--;
     }
+
   } else {
     printf("%d %s: unknown sys call %d\n",
             p->pid, p->name, num);
