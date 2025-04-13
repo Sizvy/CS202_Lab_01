@@ -686,12 +686,12 @@ procdump(void)
 // Lab 1
 int get_sysinfo(int param)
 {
+  struct proc *p;
   if(param == 0)
   {
-    struct proc *p;
     int process_count = 0;
 
-    printf("\n");
+    //printf("\n");
     for(p = proc; p < &proc[NPROC]; p++){
       if(p->state == RUNNABLE || p->state == RUNNING || p->state == ZOMBIE || p->state == SLEEPING){
         process_count++;
@@ -702,6 +702,8 @@ int get_sysinfo(int param)
   }
   else if(param == 1)
   {
+
+    // return myproc()->syscall_count;
     int total_syscalls = 0;
 
     for(struct proc *p = proc; p < &proc[NPROC]; p++) {
@@ -720,4 +722,24 @@ int get_sysinfo(int param)
   {
     return -1;
   }
+}
+
+
+int get_procinfo(struct pinfo *pi)
+{
+  struct proc *p = myproc();
+  struct pinfo temp;
+  temp.ppid = p->parent->pid;
+  temp.syscall_count = p->syscall_count;
+
+
+  temp.page_usage = (p->sz + PGSIZE - 1) / PGSIZE; 
+
+  return copyout(p->pagetable, (uint64)pi, (char *)&temp, sizeof(temp));
+  // if(copyout(p->pagetable, (uint64)pi, (char *)&temp, sizeof(temp)) < 0)
+    // return -1;
+
+  // return 0;
+
+
 }

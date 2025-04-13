@@ -22,3 +22,4 @@
 #define SYS_close  21
 // Lab 1
 #define SYS_sysinfo   22
+#define SYS_procinfo 23

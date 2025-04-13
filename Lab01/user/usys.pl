@@ -38,3 +38,4 @@ entry("sleep");
 entry("uptime");
 #lab 1
 entry("sysinfo");
+entry("procinfo");

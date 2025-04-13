@@ -4,6 +4,7 @@ struct file;
 struct inode;
 struct pipe;
 struct proc;
+struct pinfo; // Lab 1
 struct spinlock;
 struct sleeplock;
 struct stat;
@@ -110,6 +111,7 @@ int             either_copyin(void *dst, int user_src, uint64 src, uint64 len);
 void            procdump(void);
 // Lab 1
 int             get_sysinfo(int);
+int             get_procinfo(struct pinfo*);
 
 // swtch.S
 void            swtch(struct context*, struct context*);
