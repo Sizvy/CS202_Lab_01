@@ -107,3 +107,10 @@ struct proc {
   // Lab 1
   int syscall_count;
 };
+
+// Lab 1
+struct pinfo {
+  int ppid;
+  int syscall_count;
+  int page_usage;
+};
