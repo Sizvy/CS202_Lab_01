@@ -149,16 +149,16 @@ syscall(void)
     // Use num to lookup the system call function for num, call it,
     // and store its return value in p->trapframe->a0
     // Lab 1
-    total_syscalls++;
-    int arg0 = p->trapframe->a0;
+    // int arg0 = p->trapframe->a0;
     p->trapframe->a0 = syscalls[num]();
-    // Lab 1
+    total_syscalls++;
     p->syscall_count++;
-    if(num == SYS_sysinfo && arg0 == 1)
-    {
-      total_syscalls--;
-      p->syscall_count--;
-    }
+    // If condition for the purpose of DEMO video
+    //if(num == SYS_sysinfo)
+    //{
+      //printf("current count: %d, SYS number: %d, arg: %d\n",
+      //      total_syscalls, num, arg0);
+    //}
 
   } else {
     printf("%d %s: unknown sys call %d\n",
